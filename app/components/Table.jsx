@@ -47,7 +47,7 @@ function TableRow({
   );
 }
 
-TableRow.PropTypes = {
+TableRow.propTypes = {
   index: PropTypes.number.isRequired,
   owner: PropTypes.object.isRequired,
   starsgazers_count: PropTypes.number.isRequired,
@@ -69,6 +69,6 @@ export default function Table({ repos }) {
   );
 }
 
-Table.PropTypes = {
+Table.propTypes = {
   repos: PropTypes.array.isRequired,
 };
