@@ -1,11 +1,14 @@
 import * as React from "react";
 import * as ReactDom from "react-dom/client";
 import "./index.css";
-import Popular from "./components/Popular";
-import Battle from "./components/Battle";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
-import Results from "./components/Results";
+import Loading from "./components/Loading";
+
+const Popular = React.lazy(() => import("./components/Popular"));
+const Battle = React.lazy(() => import("./components/Battle"));
+const Results = React.lazy(() => "./components/Results");
+
 class App extends React.Component {
   state = {
     theme: "light",
@@ -23,11 +26,13 @@ class App extends React.Component {
         <div className={this.state.theme}>
           <div className="container">
             <Nav theme={this.state.theme} toggleTheme={this.toggleTheme} />
-            <Routes>
-              <Route path="/" element={<Popular />} />
-              <Route path="/battle" element={<Battle />} />
-              <Route path="/results" element={<Results />} />
-            </Routes>
+            <React.Suspense fallback={<Loading />}>
+              <Routes>
+                <Route path="/" element={<Popular />} />
+                <Route path="/battle" element={<Battle />} />
+                <Route path="/results" element={<Results />} />
+              </Routes>
+            </React.Suspense>
           </div>
         </div>
       </Router>
